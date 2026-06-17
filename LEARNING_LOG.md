@@ -65,3 +65,14 @@ Trade-offs:
 
 Interview explanation:
 - I implemented a lightweight ETL layer that bridges data ingestion and intelligence. The focus is on robust data quality: we don't just silently drop bad data, but we track metrics (missing titles, invalid URLs) via quality flags and reports. This creates an auditable data pipeline necessary for reliable AI outputs.
+
+## Strategic Roadmap Update
+
+Date: 2026-06-18
+
+### Pivot Rationale
+- **Why a Professional Web BI Dashboard?** Streamlit and Power BI are excellent for prototyping and standalone business analytics, but they do not scale well as customizable SaaS products. To deliver a unified, premium, and highly responsive user experience, we are transitioning to a dedicated web application stack (FastAPI backend and Next.js frontend). This ensures maximum control over custom UI components, responsive charts, and interactive AI grounding workflows.
+- **Why is Power BI Export Optional?** Many enterprise users still require the ability to run custom ad-hoc analyses. Keeping Power BI compatibility via clean CSV exports guarantees interoperability without locking the main product interface into Microsoft's ecosystem.
+- **Why Rule-Based Fallback for AI Insights?** Relying purely on LLM APIs creates single points of failure (network drops, API rate limits, pricing constraints, or key configuration errors). A rule-based fallback ensures that the dashboard remains fully functional and informative, generating deterministic analytical insights even when `GEMINI_API_KEY` is not provided.
+- **Why Gemini/API Integration Only After Analytics Metrics Stability?** LLMs are highly dependent on the quality and structure of their input context. Integrating LLMs before analytics tables and trend calculation scores are fully mature would result in brittle prompts, excessive hallucinations, and frequent schema updates. Stabilizing the math first guarantees that the AI has clean, validated, and structured evidence to summarize.
+

@@ -1,31 +1,47 @@
-# MarketPulse AI Tasks & Roadmap
+# MarketPulse AI Implementation Roadmap
+
+This document maps out the modules, inputs, outputs, file conventions, and definitions of done for each phase of the MarketPulse AI development cycle.
+
+---
+
+## Status Overview
+
+- **Module 0**: Project Operating System — **Done** ✅
+- **Module 1**: Data Ingestion — **Done** ✅
+- **Module 2**: ETL & Data Quality — **Done** ✅
+- **Module 3**: Analytics Data Mart — **Next Up** ──►
+- **Module 4**: Trend Detection & Insight Metrics — **Planned**
+- **Module 5**: FastAPI Analytics API — **Planned**
+- **Module 6**: Professional Web BI Dashboard — **Planned**
+- **Module 7**: AI Insight Generator with Gemini/Fallback — **Planned**
+- **Module 8**: Evidence Explorer / RAG with Citations — **Planned**
+- **Module 9**: Evaluation & Observability — **Planned**
+- **Module 10**: Automation with Prefect/n8n — **Planned**
+- **Module 11**: Human Review & Report Delivery — **Planned**
+- **Module 12**: CI/CD & Portfolio Packaging — **Planned**
+
+---
 
 ## Completed Modules
 
 ### Module 0 — Project Operating System ✅
-- [x] Establish directory structures and standard folders.
-- [x] Configure dependencies (`requirements.txt`, `pyproject.toml`).
-- [x] Write environment template (`.env.example`) and setup `.gitignore`.
-- [x] Build minimal Streamlit skeleton (`app/main.py`).
-- [x] Implement smoke import tests (`tests/test_smoke.py`).
+- **Goal**: Set up workspace, dependencies, standard folder layout, code validation scripts, and initial Streamlit entrypoint.
+- **Input**: Requirements documentation.
+- **Output**: Core project structure, `.gitignore`, `.env.example`, `requirements.txt`, basic tests.
 
 ### Module 1 — Data Ingestion ✅
-- [x] Choose Google News RSS feed parser as initial data source.
-- [x] Implement robust keyword feed parser collector (`src/collectors/run_ingestion.py`).
-- [x] Add offline/no-network sample fallback mechanism (`data/sample/sample_articles.json`).
-- [x] Save raw records as JSON in `data/raw/` with stable SHA-256 hashes as IDs.
-- [x] Write collection unit tests with mock network scenarios.
+- **Goal**: Create RSS ingestion pipeline targeting keyword-specific Google News search URLs, with stable ID hashing and sample offline backup.
+- **Input**: RSS feeds and user keyword parameters.
+- **Output**: Raw article entries stored as JSONs in `data/raw/` with deterministic IDs.
 
 ### Module 2 — ETL & Data Quality ✅
-- [x] Define Pydantic models for raw and processed article data (`src/processing/models.py`).
-- [x] Implement ETL pipeline for cleaning text, formatting dates, and deduplicating (`src/processing/etl.py`).
-- [x] Build data quality reporting tool that logs quality flags (`missing_title`, `invalid_url`) instead of silent drops.
-- [x] Orchestrate pipeline execution script (`src/processing/run_etl.py`).
-- [x] Run test suite to verify ETL processing.
+- **Goal**: Build cleaning and verification flow checking incoming schemas using Pydantic, tag missing/bad keys without losing records, and deduplicate articles.
+- **Input**: Ingested raw files from `data/raw/`.
+- **Output**: Cleaned JSON article files and data validation quality reports in `data/processed/`.
 
 ---
 
-## Upcoming Roadmap (Modules 3 - 12)
+## Planned Modules
 
 ### Module 3 — Analytics Data Mart
 - **Goal**: Module 3 — Analytics Data Mart converts processed article data into analytics-ready CSV/JSON tables for KPI metrics, source quality analysis, trend metrics, and future dashboard/API consumption. SQLite or DuckDB may be considered later only if querying requirements become more complex.
@@ -42,10 +58,6 @@
   - CSV files for Power BI are automatically exported to `data/exports/` and verified.
   - Tests verify that duplicate or schema-invalid items do not pollute the data mart.
 - **What not to do**: Do not add FastAPI endpoints, trend scores, or LLM integrations yet. Do not build database servers or enforce SQLite/DuckDB requirements at this stage.
-- [ ] Create aggregation schemas for CSV/JSON tables.
-- [ ] Implement data mart CLI runner.
-- [ ] Implement optional CSV export logic for Power BI compatibility.
-- [ ] Write data mart integration tests.
 
 ### Module 4 — Trend Detection & Insight Metrics
 - **Goal**: Analyze the Analytics Data Mart to calculate keywords frequency, relevance, and trend signals (momentum, velocity, keyword co-occurrence) to yield mathematical and rule-based insights.
@@ -59,9 +71,6 @@
   - Mathematical scores (e.g. TF-IDF, change rate, trend momentum) are computed deterministically.
   - Trend records are saved and schema-validated.
 - **What not to do**: Do not run LLMs or call Gemini API. Do not write API endpoints or build frontend code.
-- [ ] Code trend calculation formulas and scoring logic.
-- [ ] Build script to extract top keywords and cluster co-occurring terms.
-- [ ] Create unit tests validating trend detection scores.
 
 ### Module 5 — FastAPI Analytics API
 - **Goal**: Build a high-performance REST API backend using FastAPI to serve trend metrics, chart configurations, article tables, and insight summaries.
@@ -76,9 +85,6 @@
   - FastAPI server starts successfully and exposes endpoints like `/api/v1/metrics`, `/api/v1/charts`, `/api/v1/trends`.
   - API returns correct JSON schemas containing chart-friendly structures.
 - **What not to do**: Do not write Next.js or Tailwind code. Do not implement direct LLM calls in API routes.
-- [ ] Set up FastAPI project boilerplate and API routers.
-- [ ] Define dynamic response schemas that bundle data + chart visual configurations.
-- [ ] Write integration tests for API endpoints using FastAPI `TestClient`.
 
 ### Module 6 — Professional Web BI Dashboard
 - **Goal**: Implement a professional web-based BI UI using Next.js, Tailwind, shadcn/ui, and Recharts to render the dashboard dynamically.
@@ -94,9 +100,6 @@
   - The UI is fully data-driven, retrieving chart configs and data solely from the FastAPI backend.
   - Zero placeholder UI elements.
 - **What not to do**: Do not call the Gemini API or LLMs directly from frontend. Do not write local mock JSONs on the frontend if the API is missing.
-- [ ] Initialize Next.js project with Tailwind CSS and shadcn/ui.
-- [ ] Code dynamic UI dashboard template with charts (using Recharts).
-- [ ] Wire up dashboard components to consume API endpoints.
 
 ### Module 7 — AI Insight Generator with Gemini/Fallback
 - **Goal**: Generate AI business insights from trend metrics and news content, falling back gracefully to rule-based heuristics if `GEMINI_API_KEY` is not present.
@@ -111,9 +114,6 @@
   - Generates insights using Gemini when API key is provided, validated via Pydantic.
   - Generates sensible rule-based insights when API key is absent.
 - **What not to do**: Do not write free-form, unvalidated LLM calls. Do not bypass the FastAPI backend (integrate this logic in backend API endpoints).
-- [ ] Implement rule-based heuristic engine for fallback insight strings.
-- [ ] Set up Gemini LLM integration with strict Pydantic parsing.
-- [ ] Write tests confirming rule-based fallback behavior and mock Gemini calls.
 
 ### Module 8 — Evidence Explorer / RAG with Citations
 - **Goal**: Build a Retrieval-Augmented Generation (RAG) system with a citations explorer to ensure every AI insight is grounded in source articles and raw statistics.
@@ -127,9 +127,6 @@
   - Insights are enriched with verifiable evidence references.
   - The UI allows clicking a citation to highlight the source news metadata.
 - **What not to do**: Do not call LLMs without attaching the exact evidence context. Do not link to non-existent article hashes.
-- [ ] Write grounding framework to align metrics with source article IDs.
-- [ ] Expand frontend UI to show clickable evidence flags and source logs.
-- [ ] Add tests validating citation linkages.
 
 ### Module 9 — Evaluation & Observability
 - **Goal**: Evaluate LLM outputs for correctness, grounding, and toxicity, and integrate structured logging/tracing for monitoring.
@@ -143,9 +140,6 @@
   - Automated evaluation runs can measure accuracy and grounding metrics.
   - System performance (latency, token usage) is monitored and logged.
 - **What not to do**: Do not use slow blocking libraries that impact API latency.
-- [ ] Establish observability tracing setup using OpenTelemetry.
-- [ ] Create evaluation metrics for insight verification (grounding, relevance).
-- [ ] Build automated cron run for evaluator tests.
 
 ### Module 10 — Automation with Prefect/n8n
 - **Goal**: Schedule and automate the data collection, ETL, analytics, and insight pipelines.
@@ -158,8 +152,6 @@
   - Scheduled run automatically executes ingestion -> ETL -> datamart -> insights.
   - Failure notifications are triggered when data quality bars fall.
 - **What not to do**: Do not hardcode execution schedules in Python files directly; keep it configurable.
-- [ ] Set up automated pipelines linking Ingestion -> ETL -> Datamart -> Trends.
-- [ ] Integrate lightweight scheduler (cron / Prefect / n8n flows).
 
 ### Module 11 — Human Review & Report Delivery
 - **Goal**: Implement a mechanism for humans to review, modify, or approve AI insights before they are sent to downstream channels (email, Slack, Webhooks, PDF export).
@@ -173,8 +165,6 @@
   - Interface allows updating insight text, adding human notes, and marking as "Approved".
   - Approved reports are delivered successfully to external targets.
 - **What not to do**: Do not deliver unapproved insights automatically if human-in-the-loop is enabled in configs.
-- [ ] Add an admin dashboard view in frontend for review queues.
-- [ ] Implement Slack notification triggers and PDF generator compiling report data.
 
 ### Module 12 — CI/CD & Portfolio Packaging
 - **Goal**: Package the entire system for production readiness, including Dockerization, CI/CD testing, and portfolio-ready presentation (README updates, screenshots, online demo setups).
@@ -188,8 +178,3 @@
   - The application builds and starts successfully with a single `docker-compose up` command.
   - Continuous integration workflows successfully run tests on all modules.
 - **What not to do**: Do not expose sensitive credentials in Docker files or GitHub action configs.
-- [ ] Build multi-stage Dockerfiles for backend FastAPI and frontend Next.js.
-- [ ] Establish GitHub Action workflow testing data collection, ETL, and backend.
-- [ ] Add documentation screenshots and portfolio setup guide.
-
-

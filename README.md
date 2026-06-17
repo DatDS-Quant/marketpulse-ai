@@ -1,6 +1,6 @@
 # MarketPulse AI
 
-MarketPulse AI is an AI-powered market intelligence automation platform. The project is designed as a portfolio-grade AI engineering system that demonstrates data ingestion, ETL, schema validation, trend detection, RAG with citations, structured LLM outputs, evaluation, observability, human-in-the-loop review, and Streamlit dashboarding.
+MarketPulse AI is an automated market intelligence and AI insight dashboard that turns market/news data into validated datasets, trend metrics, visual dashboards, and AI-assisted business insights.
 
 ## Problem
 
@@ -8,44 +8,54 @@ Market research often requires manually collecting scattered market signals, cle
 
 ## Solution
 
-MarketPulse AI will automate a practical market intelligence workflow. The platform will collect data, process it into validated datasets, detect trends, generate cited insights, and present results in a simple dashboard.
-
-Module 0 only sets up the project operating system. Real AI features will be added in later modules.
+MarketPulse AI automates a professional market intelligence workflow. The platform collects RSS and Google News data, processes and validates it, generates analytics-ready JSON/CSV tables in a data mart, computes trend metrics, and serves them via a FastAPI backend to a professional Next.js web dashboard. It optionally leverages LLMs (Gemini API) to generate detailed business insights grounded in collected metrics, with rule-based fallbacks.
 
 ## Core Features
 
-- Data ingestion from selected market sources.
-- ETL and schema validation.
-- Trend detection and signal ranking.
-- Retrieval-augmented generation with citations.
-- Structured LLM outputs.
-- Evaluation and observability.
-- Human-in-the-loop review.
-- Streamlit dashboard for exploration and reporting.
+- **Automated Data Ingestion**: Robust RSS and search-based keyword ingestion with sample fallback data.
+- **ETL & Data Quality**: Strict schema validation, cleaning, and quality flag reporting.
+- **Analytics Data Mart**: Converts processed article data into analytics-ready CSV/JSON tables for KPI metrics, source quality analysis, trend metrics, and future dashboard/API consumption. SQLite or DuckDB may be considered later only if querying requirements become more complex.
+- **Trend Detection & Metrics**: Mathematical and rule-based signal ranking.
+- **FastAPI Analytics API**: High-performance REST API serving chart configurations and analytics data.
+- **Professional Web BI Dashboard**: A data-driven UI rendering KPI cards, interactive charts, and insight cards.
+- **AI Insight Generator**: Optional LLM-assisted (Gemini API) business insights with structured validations and rule-based fallbacks.
+- **Evidence Explorer**: Grounding and citing source metrics/news for all generated insights (RAG).
+- **Automation & Orchestration**: Streamlined pipelines and scheduler workflows.
 
-## Architecture Placeholder
+## Architecture
 
 ```text
-Data Sources
-    -> Collectors
-    -> Processing and Validation
-    -> Storage
-    -> Intelligence Layer
-    -> RAG and Agents
-    -> Evaluation and Observability
-    -> Streamlit Dashboard
+  [Data Ingestion (RSS)] 
+            │
+            ▼
+  [ETL & Data Quality (Pydantic)] 
+            │
+            ▼
+  [Analytics Data Mart (JSON/CSV)] ──► Optional CSV Export (Power BI Compatibility)
+            │
+            ▼
+  [Trend Detection & Metrics]
+            │
+            ▼
+  [FastAPI Analytics API]
+            │
+            ▼
+  [Professional Web BI Dashboard (Next.js + Tailwind + shadcn/ui + Recharts)]
+      ▲                      │
+      │ (Grounding Metrics)  │ (User Request)
+      │                      ▼
+  [AI Insight Generator (Gemini / Rule-based Fallback)]
 ```
-
-This architecture is a placeholder for Module 0. Each layer will be implemented incrementally.
 
 ## Tech Stack
 
-- Python
-- Streamlit
-- pytest
-- Standard Python project structure
-
-Future modules may add data validation, vector search, LLM providers, workflow orchestration, and observability tools only when needed.
+- **Backend / Analytics API**: Python, FastAPI, Pydantic
+- **Frontend / BI UI**: Next.js, Tailwind CSS, shadcn/ui, Recharts / Apache ECharts
+- **Data & Processing**: Feedparser, Pydantic (SQLite / DuckDB optional later)
+- **Internal Skeleton**: Streamlit (minimal internal admin/skeleton interface only)
+- **BI Compatibility**: Exportable CSVs for Power BI (optional export)
+- **Testing & Quality**: pytest
+- **LLM/AI Engine**: Gemini API (optional) or Rule-based Engine (fallback)
 
 ## Setup Commands
 
