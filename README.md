@@ -108,7 +108,7 @@ pytest tests/test_smoke.py
 
 ## Project Status
 
-Current status: Module 1 initialized.
+Current status: Module 2 implemented.
 
 Data ingestion logic (Module 1) is now implemented. The system can collect RSS data from Google News based on configurable keywords, normalize the records, and save them as JSON in `data/raw/`. 
 
@@ -121,4 +121,16 @@ python -m src.collectors.run_ingestion
 ```
 
 This will output a JSON file to `data/raw/` and a structured log entry to `logs/ingestion_runs.jsonl`.
+
+### Running Data Processing (ETL)
+
+```bash
+python -m src.processing.run_etl
+```
+
+This command will find the latest raw ingestion JSON file (or use sample data), clean it, validate it against a schema, and remove duplicates.
+It produces:
+- A processed JSON file containing valid articles in `data/processed/`
+- A data quality report in `data/processed/`
+- A structured log entry in `logs/processing_runs.jsonl`
 

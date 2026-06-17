@@ -18,9 +18,9 @@
 
 ## Module 2 - Processing and Validation
 
-- [ ] Define raw and processed data schemas.
-- [ ] Implement cleaning pipeline.
-- [ ] Add validation checks.
+- [x] Define raw and processed data schemas.
+- [x] Implement cleaning pipeline.
+- [x] Add validation checks.
 
 ## Module 3 - Intelligence
 

@@ -2,6 +2,15 @@
 
 This file defines the working rules for AI coding agents contributing to MarketPulse AI.
 
+## Communication Style
+
+When explaining code or project decisions:
+- Explain clearly in Vietnamese.
+- Be concise and practical.
+- Do not over-explain with unnecessary theory.
+- Use simple examples from this project.
+- When giving commands, explain briefly what each command does in Vietnamese.
+
 ## Working Rules
 
 - Keep changes small, focused, and easy to review.
