@@ -28,12 +28,12 @@ Thumbs.db
 
 # Logs and local runtime files
 *.log
-logs/*
+logs/*.jsonl
 !logs/.gitkeep
 
 # Data outputs
-data/raw/*
-data/processed/*
+data/raw/*.json
+data/processed/*.json
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !data/sample/.gitkeep

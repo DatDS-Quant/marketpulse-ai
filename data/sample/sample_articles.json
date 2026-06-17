@@ -1,0 +1,26 @@
+[
+  {
+    "id": "sample-id-1",
+    "title": "New AI Marketing Automation Tool Released",
+    "url": "https://example.com/ai-marketing-tool",
+    "source": "Sample Tech News",
+    "published_at": "2026-06-17T12:00:00Z",
+    "summary": "A new startup has released a tool that fully automates content creation and distribution.",
+    "keyword": "AI marketing automation",
+    "raw_text": null,
+    "ingested_at": "2026-06-17T12:05:00Z",
+    "collected_from": "sample"
+  },
+  {
+    "id": "sample-id-2",
+    "title": "Generative AI Transforms EdTech",
+    "url": "https://example.com/generative-ai-edtech",
+    "source": "EdTech Today",
+    "published_at": "2026-06-16T14:30:00Z",
+    "summary": "Schools are increasingly adopting generative AI to create personalized learning materials.",
+    "keyword": "EdTech AI",
+    "raw_text": null,
+    "ingested_at": "2026-06-17T12:05:00Z",
+    "collected_from": "sample"
+  }
+]

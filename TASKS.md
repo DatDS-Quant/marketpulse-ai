@@ -11,10 +11,10 @@
 
 ## Module 1 - Data Collection
 
-- [ ] Select initial data source.
-- [ ] Define collection contract.
-- [ ] Implement first collector.
-- [ ] Add collector tests.
+- [x] Select initial data source.
+- [x] Define collection contract.
+- [x] Implement first collector.
+- [x] Add collector tests.
 
 ## Module 2 - Processing and Validation
 

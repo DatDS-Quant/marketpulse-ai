@@ -108,7 +108,17 @@ pytest tests/test_smoke.py
 
 ## Project Status
 
-Current status: Module 0 initialized.
+Current status: Module 1 initialized.
 
-No real AI features have been implemented yet. The current version provides the project skeleton, documentation, basic Streamlit entry point, and smoke test.
+Data ingestion logic (Module 1) is now implemented. The system can collect RSS data from Google News based on configurable keywords, normalize the records, and save them as JSON in `data/raw/`. 
+
+If internet access fails or no RSS records are found, it uses sample fallback data marked with `collected_from: "sample"`.
+
+### Running Data Ingestion
+
+```bash
+python -m src.collectors.run_ingestion
+```
+
+This will output a JSON file to `data/raw/` and a structured log entry to `logs/ingestion_runs.jsonl`.
 
