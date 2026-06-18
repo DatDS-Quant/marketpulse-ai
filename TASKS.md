@@ -62,7 +62,7 @@
 - [x] Build script to extract top keywords and cluster co-occurring terms.
 - [x] Create unit tests validating trend detection scores.
 
-### Module 5 — FastAPI Analytics API
+### Module 5 — FastAPI Analytics API ✅
 - **Goal**: Build a high-performance REST API backend using FastAPI to serve trend metrics, chart configurations, article tables, and insight summaries.
 - **Input**: Trend metrics and article data from `data/trends/` and `data/analytics/`.
 - **Output**: JSON REST API responses matching structure requirements for the BI Dashboard (providing both data and chart/card configurations).
@@ -75,9 +75,9 @@
   - FastAPI server starts successfully and exposes endpoints like `/api/v1/metrics`, `/api/v1/charts`, `/api/v1/trends`.
   - API returns correct JSON schemas containing chart-friendly structures.
 - **What not to do**: Do not write Next.js or Tailwind code. Do not implement direct LLM calls in API routes.
-- [ ] Set up FastAPI project boilerplate and API routers.
-- [ ] Define dynamic response schemas that bundle data + chart visual configurations.
-- [ ] Write integration tests for API endpoints using FastAPI `TestClient`.
+- [x] Set up FastAPI project boilerplate and API routers.
+- [x] Define dynamic response schemas that bundle data + chart visual configurations.
+- [x] Write integration tests for API endpoints using FastAPI `TestClient`.
 
 ### Module 6 — Professional Web BI Dashboard
 - **Goal**: Implement a professional web-based BI UI using Next.js, Tailwind, shadcn/ui, and Recharts to render the dashboard dynamically.

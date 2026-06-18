@@ -118,9 +118,9 @@ pytest tests/test_smoke.py
 
 ## Project Status
 
-Current status: Module 4 implemented.
+Current status: Module 5 implemented.
 
-Data ingestion logic (Module 1) is now implemented. The system can collect RSS data from Google News based on configurable keywords, normalize the records, and save them as JSON in `data/raw/`. 
+Data ingestion logic (Module 1), processing (Module 2), data mart (Module 3), trend detection (Module 4), and the FastAPI Analytics API (Module 5) are now implemented. 
 
 If internet access fails or no RSS records are found, it uses sample fallback data marked with `collected_from: "sample"`.
 
@@ -167,4 +167,22 @@ It produces:
 - Trend metrics and top trends CSVs in `data/trends/`
 - A trend summary and manifest JSON in `data/trends/`
 - A structured log entry in `logs/trend_runs.jsonl`
+
+### Running FastAPI Analytics API
+
+```bash
+uvicorn src.api.main:app --reload
+```
+
+This command will launch the high-performance REST API backend built with FastAPI. It serves the trend metrics, chart configurations, article tables, and insight seeds.
+Key Endpoints:
+- `GET /api/v1/status`: API health and data freshness metrics.
+- `GET /api/v1/metrics`: High-level KPI summary cards.
+- `GET /api/v1/trends/top`: Top trends ranking with Bar Chart config.
+- `GET /api/v1/trends/metrics`: Detailed time-series trend scores with Line Chart config.
+- `GET /api/v1/sources`: Source quality metrics with Scatter Chart config.
+- `GET /api/v1/articles`: Paginated table of clean articles with filters.
+- `GET /api/v1/insights/seeds`: Raw insight seeds for dashboard and LLMs.
+Visit `http://127.0.0.1:8000/docs` to see the full Swagger UI documentation.
+
 
