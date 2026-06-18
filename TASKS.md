@@ -27,25 +27,24 @@
 
 ## Upcoming Roadmap (Modules 3 - 12)
 
-### Module 3 — Analytics Data Mart
+### Module 3 — Analytics Data Mart ✅
 - **Goal**: Module 3 — Analytics Data Mart converts processed article data into analytics-ready CSV/JSON tables for KPI metrics, source quality analysis, trend metrics, and future dashboard/API consumption. SQLite or DuckDB may be considered later only if querying requirements become more complex.
 - **Input**: Cleaned, deduplicated, and validated JSON article records from `data/processed/`.
-- **Output**: Analytics-ready CSV/JSON tables/files in `data/analytics/` and `data/exports/` (for Power BI compatibility). SQLite/DuckDB schemas are optional and may be considered later.
+- **Output**: Analytics-ready CSV/JSON tables/files in `data/analytics/`. Power BI compatibility is satisfied by these CSV files directly without a separate exports directory.
 - **Likely files/folders**:
-  - `src/analytics/datamart.py` (data mart logic)
-  - `src/analytics/run_datamart.py` (orchestrator CLI)
-  - `tests/test_datamart.py` (unit/integration tests)
+  - `src/analytics/metrics.py` (data mart logic)
+  - `src/analytics/run_analytics.py` (orchestrator CLI)
+  - `tests/test_analytics.py` (unit/integration tests)
   - `data/analytics/` (analytics storage)
-  - `data/exports/` (Power BI CSV outputs)
 - **Definition of Done**:
   - Data from `data/processed/` is successfully converted into analytics-ready CSV and JSON tables.
-  - CSV files for Power BI are automatically exported to `data/exports/` and verified.
+  - CSV files for Power BI are automatically exported and verified in `data/analytics/`.
   - Tests verify that duplicate or schema-invalid items do not pollute the data mart.
 - **What not to do**: Do not add FastAPI endpoints, trend scores, or LLM integrations yet. Do not build database servers or enforce SQLite/DuckDB requirements at this stage.
-- [ ] Create aggregation schemas for CSV/JSON tables.
-- [ ] Implement data mart CLI runner.
-- [ ] Implement optional CSV export logic for Power BI compatibility.
-- [ ] Write data mart integration tests.
+- [x] Create aggregation schemas for CSV/JSON tables.
+- [x] Implement data mart CLI runner.
+- [x] Implement optional CSV export logic for Power BI compatibility (via `data/analytics/`).
+- [x] Write data mart integration tests.
 
 ### Module 4 — Trend Detection & Insight Metrics
 - **Goal**: Analyze the Analytics Data Mart to calculate keywords frequency, relevance, and trend signals (momentum, velocity, keyword co-occurrence) to yield mathematical and rule-based insights.

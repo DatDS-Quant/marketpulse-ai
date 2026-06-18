@@ -118,7 +118,7 @@ pytest tests/test_smoke.py
 
 ## Project Status
 
-Current status: Module 2 implemented.
+Current status: Module 3 implemented.
 
 Data ingestion logic (Module 1) is now implemented. The system can collect RSS data from Google News based on configurable keywords, normalize the records, and save them as JSON in `data/raw/`. 
 
@@ -143,4 +143,16 @@ It produces:
 - A processed JSON file containing valid articles in `data/processed/`
 - A data quality report in `data/processed/`
 - A structured log entry in `logs/processing_runs.jsonl`
+
+### Running Analytics Data Mart
+
+```bash
+python -m src.analytics.run_analytics
+```
+
+This command will find the latest processed article JSON file from `data/processed/` and convert the records into an analytics data mart. It creates future-ready CSV and JSON outputs for the FastAPI backend, the Next.js web dashboard, and optional Power BI compatibility.
+It produces:
+- Analytics CSV tables in `data/analytics/` (e.g., `articles_clean.csv`, `daily_keyword_metrics.csv`, `source_metrics.csv`, `quality_metrics.csv`, `insight_seed_metrics.csv`)
+- A manifest file `data/analytics/analytics_manifest.json`
+- A structured log entry in `logs/analytics_runs.jsonl`
 

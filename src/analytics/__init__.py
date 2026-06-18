@@ -1,0 +1,1 @@
+"""Analytics Data Mart module."""

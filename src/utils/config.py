@@ -9,6 +9,7 @@ DATA_DIR = PROJECT_ROOT / "data"
 RAW_DATA_DIR = DATA_DIR / "raw"
 PROCESSED_DATA_DIR = DATA_DIR / "processed"
 SAMPLE_DATA_DIR = DATA_DIR / "sample"
+ANALYTICS_DATA_DIR = DATA_DIR / "analytics"
 
 # Logs Directory
 LOGS_DIR = PROJECT_ROOT / "logs"
@@ -17,6 +18,7 @@ LOGS_DIR = PROJECT_ROOT / "logs"
 RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
 PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
 SAMPLE_DATA_DIR.mkdir(parents=True, exist_ok=True)
+ANALYTICS_DATA_DIR.mkdir(parents=True, exist_ok=True)
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Default keywords for data ingestion

@@ -76,3 +76,27 @@ Date: 2026-06-18
 - **Why Rule-Based Fallback for AI Insights?** Relying purely on LLM APIs creates single points of failure (network drops, API rate limits, pricing constraints, or key configuration errors). A rule-based fallback ensures that the dashboard remains fully functional and informative, generating deterministic analytical insights even when `GEMINI_API_KEY` is not provided.
 - **Why Gemini/API Integration Only After Analytics Metrics Stability?** LLMs are highly dependent on the quality and structure of their input context. Integrating LLMs before analytics tables and trend calculation scores are fully mature would result in brittle prompts, excessive hallucinations, and frequent schema updates. Stabilizing the math first guarantees that the AI has clean, validated, and structured evidence to summarize.
 
+## Module 3 - Analytics Data Mart
+
+Date: 2026-06-18
+
+What I built:
+- Analytics data mart runner converting processed JSON logs to clean CSV files.
+- Daily keyword metrics aggregation computing rates and data quality score.
+- Source metrics aggregation for source quality analysis.
+- Deterministic, rule-based insight seeds generation to ground future AI models.
+
+What I learned:
+- How to efficiently map error flags (list of strings) into Boolean feature columns in pandas.
+- The value of separating data ingestion schemas (Pydantic) from analytical aggregations (pandas DataFrame).
+- Standardizing and clamping derived quality scores (0 to 100) based on simple penalty math instead of complex black-box logic.
+
+Bugs and fixes:
+- The boolean flags returned by pandas (`numpy.bool_`) broke native python `assert X is True` checks in pytest. This was fixed by explicitly casting them to standard `bool()`.
+- Floating point inaccuracies caused tests checking `1/3` to fail against `0.3333`. This was fixed by using a bounded tolerance check (`abs(val - target) < 0.001`).
+
+Trade-offs:
+- Decided to compute scores explicitly within Python/pandas instead of relying on a database engine like SQLite/DuckDB. This keeps dependencies low, eliminates schema migration issues for now, and fulfills the Power BI CSV requirements perfectly.
+
+Interview explanation:
+- For this module, I focused on building the foundational analytical layer. I converted the raw pipeline data into structured, multi-dimensional tables (articles, keywords, sources). Instead of jumping straight to LLMs, I built deterministic insight seeds and calculated transparent quality scores. This ensures any downstream dashboard or AI generator has mathematically sound facts to rely on, preventing hallucinations.
