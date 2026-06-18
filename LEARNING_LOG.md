@@ -100,3 +100,27 @@ Trade-offs:
 
 Interview explanation:
 - For this module, I focused on building the foundational analytical layer. I converted the raw pipeline data into structured, multi-dimensional tables (articles, keywords, sources). Instead of jumping straight to LLMs, I built deterministic insight seeds and calculated transparent quality scores. This ensures any downstream dashboard or AI generator has mathematically sound facts to rely on, preventing hallucinations.
+
+## Module 4 - Trend Detection & Insight Metrics
+
+Date: 2026-06-18
+
+What I built:
+- A deterministic trend scoring engine calculating volume, growth, source diversity, quality, and freshness scores.
+- A signal classification module to tag keywords (e.g., `rising_keyword`, `high_volume_keyword`, `stale_data_warning`).
+- A top trends ranking mechanism providing structured explanation seeds for downstream LLM/Dashboard ingestion.
+- Comprehensive `pytest` coverage validating mathematical bounds and avoiding division-by-zero edge cases.
+
+What I learned:
+- Leveraging pandas vectorized operations (`groupby`, `shift`, `transform`, `clip`) simplifies complex window calculations and ensures robust fallback behaviors.
+- The importance of mathematically clamping scores (0 to 100) to keep indicators predictable and visually uniform on a dashboard.
+- How to strictly separate insight rule-based fallbacks (generating summary explanation seeds) from stochastic LLM calls.
+
+Bugs and fixes:
+- The initial testing logic assumed the highest overall count would rank first, but an edge case keyword (`content automation`) with 0 previous articles experienced a 12.0x growth rate, legitimately pushing it to rank 1 via the growth_score constraint. Fixed by updating the test assertion to correctly reflect the mathematical truth.
+
+Trade-offs:
+- Decided to compute metrics sequentially on `daily_keyword_metrics.csv` instead of using a time-series forecasting model. This prevents black-box AI logic, keeps the pipeline highly deterministic, and allows exact auditing of why a keyword spiked.
+
+Interview explanation:
+- For this module, I built the Trend Detection core entirely using deterministic math. I deliberately avoided introducing LLMs or heavy ML forecasting models here. By calculating precise, bounded scores for growth, volume, and data freshness using Pandas, we guarantee that the upcoming Web Dashboard and AI Insights generator will be driven by validated, auditable, and interpretable market facts rather than black-box assumptions.

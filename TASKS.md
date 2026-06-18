@@ -46,21 +46,21 @@
 - [x] Implement optional CSV export logic for Power BI compatibility (via `data/analytics/`).
 - [x] Write data mart integration tests.
 
-### Module 4 — Trend Detection & Insight Metrics
+### Module 4 — Trend Detection & Insight Metrics ✅
 - **Goal**: Analyze the Analytics Data Mart to calculate keywords frequency, relevance, and trend signals (momentum, velocity, keyword co-occurrence) to yield mathematical and rule-based insights.
 - **Input**: Data mart tables/files from `data/analytics/`.
 - **Output**: Trend metrics records containing computed scores, top keywords, and signal indicators in `data/trends/` or data mart tables.
 - **Likely files/folders**:
-  - `src/analytics/trends.py` (trend detection logic)
-  - `src/analytics/run_trends.py` (CLIs for trend detection)
+  - `src/intelligence/trend_scoring.py` (trend detection logic)
+  - `src/intelligence/run_trends.py` (CLIs for trend detection)
   - `tests/test_trends.py` (unit tests verifying math/heuristics)
 - **Definition of Done**:
   - Mathematical scores (e.g. TF-IDF, change rate, trend momentum) are computed deterministically.
   - Trend records are saved and schema-validated.
 - **What not to do**: Do not run LLMs or call Gemini API. Do not write API endpoints or build frontend code.
-- [ ] Code trend calculation formulas and scoring logic.
-- [ ] Build script to extract top keywords and cluster co-occurring terms.
-- [ ] Create unit tests validating trend detection scores.
+- [x] Code trend calculation formulas and scoring logic.
+- [x] Build script to extract top keywords and cluster co-occurring terms.
+- [x] Create unit tests validating trend detection scores.
 
 ### Module 5 — FastAPI Analytics API
 - **Goal**: Build a high-performance REST API backend using FastAPI to serve trend metrics, chart configurations, article tables, and insight summaries.

@@ -118,7 +118,7 @@ pytest tests/test_smoke.py
 
 ## Project Status
 
-Current status: Module 3 implemented.
+Current status: Module 4 implemented.
 
 Data ingestion logic (Module 1) is now implemented. The system can collect RSS data from Google News based on configurable keywords, normalize the records, and save them as JSON in `data/raw/`. 
 
@@ -155,4 +155,16 @@ It produces:
 - Analytics CSV tables in `data/analytics/` (e.g., `articles_clean.csv`, `daily_keyword_metrics.csv`, `source_metrics.csv`, `quality_metrics.csv`, `insight_seed_metrics.csv`)
 - A manifest file `data/analytics/analytics_manifest.json`
 - A structured log entry in `logs/analytics_runs.jsonl`
+
+### Running Trend Detection & Metrics
+
+```bash
+python -m src.intelligence.run_trends
+```
+
+This command will read the latest analytics data mart files, calculate trend metrics, rank the top trends, compute data freshness, and generate structured insight seeds.
+It produces:
+- Trend metrics and top trends CSVs in `data/trends/`
+- A trend summary and manifest JSON in `data/trends/`
+- A structured log entry in `logs/trend_runs.jsonl`
 

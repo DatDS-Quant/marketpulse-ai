@@ -10,8 +10,8 @@ This document maps out the modules, inputs, outputs, file conventions, and defin
 - **Module 1**: Data Ingestion — **Done** ✅
 - **Module 2**: ETL & Data Quality — **Done** ✅
 - **Module 3**: Analytics Data Mart — **Done** ✅
-- **Module 4**: Trend Detection & Insight Metrics — **Next Up** ──►
-- **Module 5**: FastAPI Analytics API — **Planned**
+- **Module 4**: Trend Detection & Insight Metrics — **Done** ✅
+- **Module 5**: FastAPI Analytics API — **Next Up** ──►
 - **Module 6**: Professional Web BI Dashboard — **Planned**
 - **Module 7**: AI Insight Generator with Gemini/Fallback — **Planned**
 - **Module 8**: Evidence Explorer / RAG with Citations — **Planned**

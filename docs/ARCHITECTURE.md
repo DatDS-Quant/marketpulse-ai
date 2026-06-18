@@ -42,7 +42,7 @@ MarketPulse AI is built as a decoupled, multi-layered data and AI system. The ba
 │     (Structured analytics tables)         (Power BI Compatibility)     │
 │              │                                                         │
 │              ▼                                                         │
-│  src.analytics.run_trends (Calculates keyword frequency & signals)     │
+│  src.intelligence.run_trends (Calculates keyword frequency & signals)  │
 │              │                                                         │
 │              ▼                                                         │
 │     data/trends/trend_metrics.json                                     │
