@@ -4,7 +4,8 @@ from .schemas import InsightCard
 class BannedPhrasesReviewerAgent:
     BANNED_PHRASES = [
         "will dominate", "guarantees", "definitely", 
-        "revenue will", "invest immediately", "guaranteed demand"
+        "revenue will", "invest immediately", "guaranteed demand",
+        "guaranteed growth", "must invest", "certain to", "explode in revenue"
     ]
     
     @classmethod
