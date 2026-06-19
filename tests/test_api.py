@@ -107,7 +107,12 @@ def test_insights_seeds_endpoint():
         data = response.json()
         assert isinstance(data, list)
         if len(data) > 0:
-            assert "insight_type" in data[0]
-            assert "explanation_seed" in data[0]
+            item = data[0]
+            # It could be the old schema (insight_type) or new schema (insight_id)
+            assert "insight_type" in item or "insight_id" in item
+            if "insight_type" in item:
+                assert "explanation_seed" in item
+            else:
+                assert "factual_explanation" in item
     else:
         assert response.status_code == 503

@@ -12,8 +12,14 @@ SAMPLE_DATA_DIR = DATA_DIR / "sample"
 ANALYTICS_DATA_DIR = DATA_DIR / "analytics"
 TRENDS_DATA_DIR = DATA_DIR / "trends"
 
-# Logs Directory
+INSIGHTS_DATA_DIR = DATA_DIR / "insights"
 LOGS_DIR = PROJECT_ROOT / "logs"
+
+# Reports Directory
+REPORTS_DIR = PROJECT_ROOT / "reports"
+REPORTS_GENERATED_DIR = REPORTS_DIR / "generated"
+REPORTS_SAMPLES_DIR = REPORTS_DIR / "samples"
+REPORTS_TEMPLATES_DIR = REPORTS_DIR / "templates"
 
 # Ensure essential directories exist
 RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
@@ -21,7 +27,11 @@ PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
 SAMPLE_DATA_DIR.mkdir(parents=True, exist_ok=True)
 ANALYTICS_DATA_DIR.mkdir(parents=True, exist_ok=True)
 TRENDS_DATA_DIR.mkdir(parents=True, exist_ok=True)
+INSIGHTS_DATA_DIR.mkdir(parents=True, exist_ok=True)
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
+REPORTS_GENERATED_DIR.mkdir(parents=True, exist_ok=True)
+REPORTS_SAMPLES_DIR.mkdir(parents=True, exist_ok=True)
+REPORTS_TEMPLATES_DIR.mkdir(parents=True, exist_ok=True)
 
 # Default keywords for data ingestion
 DEFAULT_KEYWORDS = [
