@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 # Import routers
-from src.api.routes import status, metrics, trends, sources, articles, insights, evaluation
+from src.api.routes import status, metrics, trends, sources, articles, insights, evaluation, evidence
 
 # Setup basic logging
 logging.basicConfig(level=logging.INFO)
@@ -42,6 +42,7 @@ app.include_router(trends.router, prefix="/api/v1/trends", tags=["Trends"])
 app.include_router(sources.router, prefix="/api/v1/sources", tags=["Sources"])
 app.include_router(articles.router, prefix="/api/v1/articles", tags=["Articles"])
 app.include_router(insights.router, prefix="/api/v1/insights", tags=["Insights"])
+app.include_router(evidence.router, prefix="/api/v1/evidence", tags=["Evidence"])
 app.include_router(evaluation.router, prefix="/api/v1/evaluation", tags=["Evaluation"])
 
 @app.get("/", tags=["Health Check"])

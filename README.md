@@ -130,7 +130,7 @@ pytest tests/test_smoke.py
 | **5. API** | ✅ Complete | FastAPI REST endpoints serving analytics, trends, and insight metrics |
 | **6. Web UI** | ✅ Complete | Professional Next.js BI Dashboard displaying metrics and system status |
 | **7. AI Layer** | ✅ Complete | RAG pipeline, semantic search, AI-powered business insight synthesis |
-| **8. Evidence Layer** | ⏳ Pending | Evidence Explorer with source grounding and keyword mapping |
+| **8. Evidence Layer** | ✅ Done | Evidence Explorer with source grounding and keyword mapping |
 | **9. Evals & QA** | ✅ Complete | Deterministic Evaluation, Quality Gates, and Observability layer |
 
 ## Quick Start

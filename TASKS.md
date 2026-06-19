@@ -120,16 +120,16 @@
 - **Input**: Data mart articles and AI generated insights.
 - **Output**: Grounding maps and search indexes, plus frontend elements showing citations (links to source articles and exact statistics).
 - **Likely files/folders**:
-  - `src/rag/indexer.py` (indexing, optional embeddings)
-  - `src/rag/search.py` (citation verification search)
-  - `tests/test_rag.py` (verifying citation accuracy)
-- **Definition of Done**:
-  - Insights are enriched with verifiable evidence references.
-  - The UI allows clicking a citation to highlight the source news metadata.
-- **What not to do**: Do not call LLMs without attaching the exact evidence context. Do not link to non-existent article hashes.
-- [ ] Write grounding framework to align metrics with source article IDs.
-- [ ] Expand frontend UI to show clickable evidence flags and source logs.
-- [ ] Add tests validating citation linkages.
+### Module 8 — Evidence Explorer / RAG with Citations ✅
+- **Goal**: Allow users to trace insights back to raw sources deterministically.
+- **Input**: Cleaned articles, insight cards.
+- **Output**: Cited Markdown report, JSON evidence index, citations API.
+
+- [x] Implement deterministic Evidence Layer.
+- [x] Build lexical retrieval scoring.
+- [x] Create `[E1]`-style citation mapping.
+- [x] Create `src/api/routes/evidence.py`
+- [x] Add tests validating citation linkages.
 
 ### Module 9 — Evaluation & Observability ✅
 - **Goal**: Evaluate LLM outputs for correctness, grounding, and toxicity, and integrate structured logging/tracing for monitoring.
