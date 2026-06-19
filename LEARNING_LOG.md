@@ -181,11 +181,46 @@ Interview explanation:
  -   B r e a k i n g   a   d e n s e   d a s h b o a r d   i n t o   a   m u l t i - p a g e   s t o r y   s i g n i f i c a n t l y   i m p r o v e s   r e a d a b i l i t y   a n d   u s e r   f o c u s . 
  -   A   w e l l - s t r u c t u r e d   A P I   r e s p o n s e   ( c h a r t _ c o n f i g )   m a k e s   m i g r a t i n g   c h a r t s   a c r o s s   p a g e s   s e a m l e s s . 
  -   H a n d l i n g   e m p t y / f a l l b a c k   s t a t e s   g r a c e f u l l y   a c r o s s   m u l t i p l e   p a g e s   i s   c r u c i a l   f o r   a   p r o f e s s i o n a l   f e e l . 
- 
- B u g s   a n d   f i x e s : 
- -   T h e   E v i d e n c e   t a b l e   p r e v i o u s l y   s h o w e d   ' - '   f o r   M a t c h e d   E n t i t y   b e c a u s e   i t   w a s   m a p p e d   t o    r t i c l e . m a t c h e d _ k e y w o r d s .   I   f i x e d   t h i s   b y   i n s p e c t i n g   t h e   C S V   s c h e m a   a n d   m a p p i n g   i t   a c c u r a t e l y   t o    r t i c l e . k e y w o r d . 
- -   T h e   S o u r c e s   c h a r t   m a p p e d   r e l i a b i l i t y   s c o r e s   i n c o r r e c t l y   f o r   s c o r e   b o u n d s   ( 0 - 1 0 0   i n s t e a d   o f   0 - 1 ) .   I   c o r r e c t e d   t h e   t h r e s h o l d   m a p p i n g   t o   u s e   \ s o u r c e _ q u a l i t y _ s c o r e \   n a t i v e l y . 
- 
- I n t e r v i e w   e x p l a n a t i o n : 
- -   F o r   t h e   f i n a l   p h a s e   o f   M o d u l e   6 ,   I   t r a n s f o r m e d   t h e   i n i t i a l   p r o t o t y p e   d a s h b o a r d   i n t o   a   p o l i s h e d ,   r e c r u i t e r - f a c i n g   m u l t i - p a g e   B I   C o n s o l e .   R a t h e r   t h a n   d u m p i n g   a l l   d a t a   o n   o n e   p a g e ,   I   s t r u c t u r e d   i t   l o g i c a l l y   s o   e a c h   p a g e   a n s w e r s   a   s p e c i f i c   b u s i n e s s   q u e s t i o n :   ' W h a t   a r e   t h e   t r e n d s ? ' ,   ' A r e   t h e   s o u r c e s   r e l i a b l e ? ' ,   ' W h a t ' s   t h e   e v i d e n c e ? ' .   I   a l s o   s t r i c t l y   m a i n t a i n e d   t h e   b a r r i e r   b e t w e e n   d e t e r m i n i s t i c   a n a l y t i c a l   i n s i g h t s   a n d   s p e c u l a t i v e   A I   t o   e n s u r e   a b s o l u t e   t r u s t   i n   t h e   d a t a .  
- 
+# #   M o d u l e   6   -   M u l t i - p a g e   B I   C o n s o l e   R e f a c t o r i n g 
+ 
+ D a t e :   2 0 2 6 - 0 6 - 1 9 
+ 
+ W h a t   I   b u i l t : 
+ -   R e f a c t o r e d   t h e   s i n g l e - p a g e   N e x t . j s   d a s h b o a r d   i n t o   a   p r o f e s s i o n a l ,   6 - p a g e   M a r k e t   I n t e l l i g e n c e   C o n s o l e   ( O v e r v i e w ,   T r e n d s ,   S o u r c e s ,   E v i d e n c e ,   I n s i g h t s ,   S y s t e m ) . 
+ -   I m p l e m e n t e d   a   c l e a n   S i d e b a r N a v   u s i n g   N e x t . j s   A p p   R o u t e r . 
+ -   R e f i n e d   I n s i g h t   C a r d s   t o   s e p a r a t e   F a c t u a l   E x p l a n a t i o n ,   L i m i t a t i o n s ,   a n d   P r a c t i c a l   N e x t   S t e p s ,   p r e v e n t i n g   h a l l u c i n a t i o n s . 
+ -   A d d e d   M e t r i c E x p l a i n e r s   t o   e d u c a t e   u s e r s   o n   d a t a   d e r i v a t i o n . 
+ -   F i x e d   m a p p i n g   i s s u e s   b e t w e e n   t h e   b a c k e n d   a r t i c l e   s c h e m a   a n d   t h e   f r o n t e n d   E v i d e n c e   t a b l e . 
+ 
+ W h a t   I   l e a r n e d : 
+ -   B r e a k i n g   a   d e n s e   d a s h b o a r d   i n t o   a   m u l t i - p a g e   s t o r y   s i g n i f i c a n t l y   i m p r o v e s   r e a d a b i l i t y   a n d   u s e r   f o c u s . 
+ -   A   w e l l - s t r u c t u r e d   A P I   r e s p o n s e   ( c h a r t _ c o n f i g )   m a k e s   m i g r a t i n g   c h a r t s   a c r o s s   p a g e s   s e a m l e s s . 
+ -   H a n d l i n g   e m p t y / f a l l b a c k   s t a t e s   g r a c e f u l l y   a c r o s s   m u l t i p l e   p a g e s   i s   c r u c i a l   f o r   a   p r o f e s s i o n a l   f e e l . 
+ 
+ B u g s   a n d   f i x e s : 
+ -   T h e   E v i d e n c e   t a b l e   p r e v i o u s l y   s h o w e d   ' - '   f o r   M a t c h e d   E n t i t y   b e c a u s e   i t   w a s   m a p p e d   t o     r t i c l e . m a t c h e d _ k e y w o r d s .   I   f i x e d   t h i s   b y   i n s p e c t i n g   t h e   C S V   s c h e m a   a n d   m a p p i n g   i t   a c c u r a t e l y   t o     r t i c l e . k e y w o r d . 
+ -   T h e   S o u r c e s   c h a r t   m a p p e d   r e l i a b i l i t y   s c o r e s   i n c o r r e c t l y   f o r   s c o r e   b o u n d s   ( 0 - 1 0 0   i n s t e a d   o f   0 - 1 ) .   I   c o r r e c t e d   t h e   t h r e s h o l d   m a p p i n g   t o   u s e   \ s o u r c e _ q u a l i t y _ s c o r e \   n a t i v e l y . 
+ 
+ I n t e r v i e w   e x p l a n a t i o n : 
+ -   F o r   t h e   f i n a l   p h a s e   o f   M o d u l e   6 ,   I   t r a n s f o r m e d   t h e   i n i t i a l   p r o t o t y p e   d a s h b o a r d   i n t o   a   p o l i s h e d ,   r e c r u i t e r - f a c i n g   m u l t i - p a g e   B I   C o n s o l e .   R a t h e r   t h a n   d u m p i n g   a l l   d a t a   o n   o n e   p a g e ,   I   s t r u c t u r e d   i t   l o g i c a l l y   s o   e a c h   p a g e   a n s w e r s   a   s p e c i f i c   b u s i n e s s   q u e s t i o n :   ' W h a t   a r e   t h e   t r e n d s ? ' ,   ' A r e   t h e   s o u r c e s   r e l i a b l e ? ' ,   ' W h a t ' s   t h e   e v i d e n c e ? ' .   I   a l s o   s t r i c t l y   m a i n t a i n e d   t h e   b a r r i e r   b e t w e e n   d e t e r m i n i s t i c   a n a l y t i c a l   i n s i g h t s   a n d   s p e c u l a t i v e   A I   t o   e n s u r e   a b s o l u t e   t r u s t   i n   t h e   d a t a .  
+ 
+## Module 9 - Evaluation, Quality Gates & Observability
+
+Date: 2026-06-20
+
+What I built:
+- A lightweight, deterministic local evaluation layer evaluating data quality, pipeline health, and insight quality.
+- Defined Quality Gates that return PASS, WARN, or FAIL statuses.
+- A FastAPI endpoint `/api/v1/evaluation/summary` to serve evaluation summaries safely.
+- `pytest` unit testing checking logic without depending on live generated data.
+
+What I learned:
+- Graceful error handling (returning None and dealing with it properly) ensures an evaluation layer never crashes the main pipeline.
+- Strict bounding of evaluation conditions (banned phrases, threshold logic) offers a deterministic baseline for AI outputs.
+- Maintaining separation of concerns allows us to evaluate everything from raw ingestion up to AI insights without entangling business logic.
+
+Bugs and fixes:
+- Ensured timestamps are safely parsed even when crossing timezones by strictly utilizing UTC for difference calculations.
+
+Interview explanation:
+- In Module 9, I built the observability and evaluation layer. Instead of adding heavy components like MLflow or Prometheus at this stage, I focused on high-value, deterministic pipeline health checks: are the files there, is the data fresh, are there any banned phrases generated by AI? This approach acts as a robust Quality Gate for recruiters or stakeholders to visually confirm that the pipeline is currently healthy and the AI outputs are secure.

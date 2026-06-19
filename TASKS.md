@@ -131,21 +131,21 @@
 - [ ] Expand frontend UI to show clickable evidence flags and source logs.
 - [ ] Add tests validating citation linkages.
 
-### Module 9 — Evaluation & Observability
+### Module 9 — Evaluation & Observability ✅
 - **Goal**: Evaluate LLM outputs for correctness, grounding, and toxicity, and integrate structured logging/tracing for monitoring.
 - **Input**: RAG prompts, generated insights, and gold-standard evaluation datasets.
 - **Output**: Evaluation reports, latency dashboards, and structured tracing logs.
 - **Likely files/folders**:
-  - `src/eval/evaluator.py` (evaluation tests)
-  - `src/observability/tracing.py` (OpenTelemetry/LangSmith/Langfuse hooks)
-  - `tests/test_eval.py`
+  - `src/evals/` (evaluation tests, loaders, quality gates)
+  - `src/api/routes/evaluation.py`
+  - `tests/test_evaluation.py`
 - **Definition of Done**:
   - Automated evaluation runs can measure accuracy and grounding metrics.
   - System performance (latency, token usage) is monitored and logged.
 - **What not to do**: Do not use slow blocking libraries that impact API latency.
-- [ ] Establish observability tracing setup using OpenTelemetry.
-- [ ] Create evaluation metrics for insight verification (grounding, relevance).
-- [ ] Build automated cron run for evaluator tests.
+- [x] Establish observability tracing setup using OpenTelemetry.
+- [x] Create evaluation metrics for insight verification (grounding, relevance).
+- [x] Build automated cron run for evaluator tests.
 
 ### Module 10 — Automation with Prefect/n8n
 - **Goal**: Schedule and automate the data collection, ETL, analytics, and insight pipelines.

@@ -13,6 +13,7 @@ ANALYTICS_DATA_DIR = DATA_DIR / "analytics"
 TRENDS_DATA_DIR = DATA_DIR / "trends"
 
 INSIGHTS_DATA_DIR = DATA_DIR / "insights"
+EVALS_DIR = PROJECT_ROOT / "evals"
 LOGS_DIR = PROJECT_ROOT / "logs"
 
 # Reports Directory
@@ -28,6 +29,7 @@ SAMPLE_DATA_DIR.mkdir(parents=True, exist_ok=True)
 ANALYTICS_DATA_DIR.mkdir(parents=True, exist_ok=True)
 TRENDS_DATA_DIR.mkdir(parents=True, exist_ok=True)
 INSIGHTS_DATA_DIR.mkdir(parents=True, exist_ok=True)
+EVALS_DIR.mkdir(parents=True, exist_ok=True)
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
 REPORTS_GENERATED_DIR.mkdir(parents=True, exist_ok=True)
 REPORTS_SAMPLES_DIR.mkdir(parents=True, exist_ok=True)
