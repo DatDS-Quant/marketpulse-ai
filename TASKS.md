@@ -79,23 +79,24 @@
 - [x] Define dynamic response schemas that bundle data + chart visual configurations.
 - [x] Write integration tests for API endpoints using FastAPI `TestClient`.
 
-### Module 6 — Professional Web BI Dashboard
-- **Goal**: Implement a professional web-based BI UI using Next.js, Tailwind, shadcn/ui, and Recharts to render the dashboard dynamically.
+### Module 6 — Professional Web BI Dashboard ✅
+- **Goal**: Implement a professional, multi-page BI storytelling console using Next.js, Tailwind, shadcn/ui, and Recharts.
 - **Input**: FastAPI API responses from backend.
-- **Output**: Modern, interactive single-page BI dashboard showing charts, KPI cards, tables, and insight panels.
+- **Output**: Modern, multi-page BI dashboard showing Executive Overview, Trends, Sources, Evidence, Insights, and System Health.
 - **Likely files/folders**:
   - `web/` (Next.js frontend project directory)
-  - `web/src/app/` (Next.js routing, components, and hooks)
-  - `web/src/components/ui/` (shadcn components)
-  - `web/src/components/charts/` (Recharts wrappers)
+  - `web/src/app/` (Next.js multi-page routing)
+  - `web/src/components/dashboard/` (Reusable BI components)
 - **Definition of Done**:
-  - Frontend runs locally with `npm run dev` and renders a dashboard with responsive layout.
+  - Frontend runs locally with `npm run dev` and renders a multi-page dashboard.
   - The UI is fully data-driven, retrieving chart configs and data solely from the FastAPI backend.
   - Zero placeholder UI elements.
-- **What not to do**: Do not call the Gemini API or LLMs directly from frontend. Do not write local mock JSONs on the frontend if the API is missing.
-- [ ] Initialize Next.js project with Tailwind CSS and shadcn/ui.
-- [ ] Code dynamic UI dashboard template with charts (using Recharts).
-- [ ] Wire up dashboard components to consume API endpoints.
+  - Navigation cleanly highlights active pages.
+- **What not to do**: Do not call the Gemini API or LLMs directly from frontend. Do not write local mock JSONs.
+- [x] Initialize Next.js project with Tailwind CSS and Recharts.
+- [x] Code dynamic UI components consuming API endpoints.
+- [x] Refactor into a multi-page BI storytelling console (`/`, `/trends`, `/sources`, `/evidence`, `/insights`, `/system`).
+- [x] Add sidebar navigation and metric explainers.
 
 ### Module 7 — AI Insight Generator with Gemini/Fallback
 - **Goal**: Generate AI business insights from trend metrics and news content, falling back gracefully to rule-based heuristics if `GEMINI_API_KEY` is not present.

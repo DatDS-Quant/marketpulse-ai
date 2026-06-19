@@ -118,11 +118,56 @@ pytest tests/test_smoke.py
 
 ## Project Status
 
-Current status: Module 5 implemented.
+## Modules & Status
 
-Data ingestion logic (Module 1), processing (Module 2), data mart (Module 3), trend detection (Module 4), and the FastAPI Analytics API (Module 5) are now implemented. 
+| Module | Status | Description |
+|---|---|---|
+| **0. OS** | ✅ Complete | Repository setup, configuration, conventions |
+| **1. Ingest** | ✅ Complete | RSS news collection, initial parsing, raw JSON storage |
+| **2. ETL** | ✅ Complete | Data cleaning, standardizing, chunking, processing into structured JSON |
+| **3. Analytics** | ✅ Complete | Data Mart generation, metrics extraction, source tracking (CSV/JSON outputs) |
+| **4. Trends** | ✅ Complete | Rule-based trend scoring, momentum tracking, deterministic insight generation |
+| **5. API** | ✅ Complete | FastAPI REST endpoints serving analytics, trends, and insight metrics |
+| **6. Web UI** | ✅ Complete | Professional Next.js BI Dashboard displaying metrics and system status |
+| **7. AI Layer** | ⏳ Pending | RAG pipeline, semantic search, AI-powered business insight synthesis |
 
-If internet access fails or no RSS records are found, it uses sample fallback data marked with `collected_from: "sample"`.
+## Quick Start
+
+### 1. Run Data Pipeline
+
+```bash
+# Ingest raw data
+python -m src.collectors.run_ingestion
+
+# Process ETL
+python -m src.processing.run_etl
+
+# Build Analytics & Trends Data Mart
+python -m src.analytics.run_analytics
+```
+
+### 2. Run Backend API
+
+```bash
+uvicorn src.api.main:app --reload
+# API runs at http://127.0.0.1:8000
+# Swagger Docs at http://127.0.0.1:8000/docs
+```
+
+### 3. Run Web Dashboard
+
+```bash
+cd web
+npm run dev
+# Dashboard runs at http://localhost:3000
+```
+**Available Dashboard Pages:**
+- `/` - Executive Overview: High-level KPIs and business summary
+- `/trends` - Trend Intelligence: Market momentum and signal strength
+- `/sources` - Source Reliability: Data quality rankings
+- `/evidence` - Evidence Explorer: Grounding articles and keyword mapping
+- `/insights` - Insight Brief: Deterministic signals and practical next steps
+- `/system` - System Health: Pipeline status and freshness
 
 ### Running Data Ingestion
 
