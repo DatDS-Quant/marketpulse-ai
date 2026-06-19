@@ -228,3 +228,8 @@ Interview explanation:
 - **Learned**: Implemented deterministic lexical retrieval system for evidence grounding without using embeddings or vector databases.
 - **Learned**: Strict separation of generated output files from tracked repository files using .gitignore.
 - **Decision**: Built a custom scoring mechanism that incorporates keyword matching, source quality, and recency for retrieving reliable citations.
+
+### Module 8B: Lightweight RAG
+- **Learned**: Designing a localized RAG system without vector databases relies heavily on robust lexical fallback scoring.
+- **Learned**: Graceful error handling (503 Service Unavailable) is critical in AI pipelines when preceding dependencies fail.
+- **Decision**: Implemented an explicit safety checker that immediately defaults to a safe rule-based answer if the AI attempts to forecast revenue, use banned promotional phrases, or hallucinate citations.

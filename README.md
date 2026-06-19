@@ -131,6 +131,7 @@ pytest tests/test_smoke.py
 | **6. Web UI** | ✅ Complete | Professional Next.js BI Dashboard displaying metrics and system status |
 | **7. AI Layer** | ✅ Complete | RAG pipeline, semantic search, AI-powered business insight synthesis |
 | **8. Evidence Layer** | ✅ Done | Evidence Explorer with source grounding and keyword mapping |
+| **8B. RAG Layer** | ✅ Done | Lightweight lexical RAG with Rule-based / AI Router answering |
 | **9. Evals & QA** | ✅ Complete | Deterministic Evaluation, Quality Gates, and Observability layer |
 
 ## Quick Start

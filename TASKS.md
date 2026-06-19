@@ -131,6 +131,16 @@
 - [x] Create `src/api/routes/evidence.py`
 - [x] Add tests validating citation linkages.
 
+### Module 8B — Lightweight RAG Extension ✅
+- **Goal**: Add a RAG answering layer without vector databases.
+- **Input**: Evidence index, citation map.
+- **Output**: Cited answers in JSON/MD, API endpoint.
+
+- [x] Implement lexical query retrieval.
+- [x] Create AI Client with Rule-based safety fallback.
+- [x] Add `/api/v1/rag/query` endpoints.
+- [x] Secure `[E1]`-style inline citations.
+
 ### Module 9 — Evaluation & Observability ✅
 - **Goal**: Evaluate LLM outputs for correctness, grounding, and toxicity, and integrate structured logging/tracing for monitoring.
 - **Input**: RAG prompts, generated insights, and gold-standard evaluation datasets.
