@@ -3,14 +3,17 @@ import json
 import logging
 from typing import Optional, List
 from datetime import datetime, timezone
-import httpx
 from pydantic import ValidationError
 
 from src.rag.schemas import RAGQuestion, RetrievedEvidence, RAGAnswer
 from src.rag.answer_generator import generate_rule_based_answer
 from src.rag.safety import is_answer_safe
+from src.insights.ai_router_client import AIRouterClient
 
 logger = logging.getLogger(__name__)
+
+# Reusable client instance
+_router_client = AIRouterClient()
 
 def generate_ai_cited_answer(question: RAGQuestion, evidence: List[RetrievedEvidence]) -> RAGAnswer:
     """Attempts to use AI to generate an answer, falling back to rule-based."""
@@ -21,13 +24,6 @@ def generate_ai_cited_answer(question: RAGQuestion, evidence: List[RetrievedEvid
     if os.getenv("ENABLE_RAG_AI", "false").lower() != "true":
         return rule_based_fallback
         
-    api_key = os.getenv("AI_ROUTER_API_KEY")
-    if not api_key:
-        return rule_based_fallback
-        
-    base_url = os.getenv("AI_ROUTER_BASE_URL", "https://openrouter.ai/api/v1")
-    model = os.getenv("AI_ROUTER_MODEL", "meta-llama/llama-3.3-70b-instruct:free")
-    
     # Build prompt
     evidence_text = ""
     for e in evidence:
@@ -51,63 +47,40 @@ def generate_ai_cited_answer(question: RAGQuestion, evidence: List[RetrievedEvid
     
     user_prompt = f"Question: {question.question}\nEvidence:\n{evidence_text}"
     
-    payload = {
-        "model": model,
-        "messages": [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
-        ],
-        "temperature": float(os.getenv("AI_ROUTER_TEMPERATURE", "0.2")),
-        "max_tokens": int(os.getenv("AI_ROUTER_MAX_TOKENS", "900"))
-    }
-    
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
-    
     try:
-        timeout = float(os.getenv("AI_ROUTER_TIMEOUT_SECONDS", "30"))
-        with httpx.Client(timeout=timeout) as client:
-            resp = client.post(f"{base_url}/chat/completions", json=payload, headers=headers)
+        content = _router_client.call_api(
+            prompt=user_prompt, 
+            system_prompt=system_prompt, 
+            response_format_json=True
+        )
+        
+        if not content:
+            logger.warning("RAG AI: Client returned no content. Falling back to rule-based.")
+            return rule_based_fallback
             
-            if resp.status_code == 429:
-                logger.warning("RAG AI: 429 Rate Limit. Falling back to rule-based.")
-                return rule_based_fallback
-                
-            resp.raise_for_status()
-            data = resp.json()
+        parsed = json.loads(content)
+        
+        ai_answer = RAGAnswer(
+            question_id=question.question_id,
+            question=question.question,
+            answer=parsed.get("answer", rule_based_fallback.answer),
+            citation_ids=[e.citation_id for e in evidence],
+            retrieved_evidence=evidence,
+            generated_by="ai_router",
+            confidence_note=parsed.get("confidence_note", "Moderate"),
+            limitation=parsed.get("limitation", "AI generated content may contain inaccuracies."),
+            created_at=datetime.now(timezone.utc).isoformat()
+        )
+        
+        if is_answer_safe(ai_answer):
+            return ai_answer
+        else:
+            logger.warning("RAG AI: Answer failed safety check. Falling back to rule-based.")
+            return rule_based_fallback
             
-            content = data["choices"][0]["message"]["content"].strip()
-            
-            # Clean possible markdown fences
-            if content.startswith("```json"):
-                content = content[7:]
-            if content.startswith("```"):
-                content = content[3:]
-            if content.endswith("```"):
-                content = content[:-3]
-                
-            parsed = json.loads(content)
-            
-            ai_answer = RAGAnswer(
-                question_id=question.question_id,
-                question=question.question,
-                answer=parsed.get("answer", rule_based_fallback.answer),
-                citation_ids=[e.citation_id for e in evidence],
-                retrieved_evidence=evidence,
-                generated_by="ai_router",
-                confidence_note=parsed.get("confidence_note", "Moderate"),
-                limitation=parsed.get("limitation", "AI generated content may contain inaccuracies."),
-                created_at=datetime.now(timezone.utc).isoformat()
-            )
-            
-            if is_answer_safe(ai_answer):
-                return ai_answer
-            else:
-                logger.warning("RAG AI: Answer failed safety check. Falling back to rule-based.")
-                return rule_based_fallback
-                
+    except json.JSONDecodeError as e:
+        logger.warning(f"RAG AI JSON parse failed: {e}. Raw content: {content[:100]}")
+        return rule_based_fallback
     except Exception as e:
-        logger.warning(f"RAG AI failed: {e}. Falling back to rule-based.")
+        logger.warning(f"RAG AI failed unexpectedly: {e}. Falling back to rule-based.")
         return rule_based_fallback

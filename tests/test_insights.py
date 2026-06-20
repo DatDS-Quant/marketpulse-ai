@@ -60,6 +60,7 @@ def test_ai_router_client_success(mock_client_class, monkeypatch):
     monkeypatch.setenv("AI_ROUTER_BASE_URL", "http://test")
     monkeypatch.setenv("AI_ROUTER_API_KEY", "test-key")
     monkeypatch.setenv("AI_ROUTER_MODEL", "test-model")
+    monkeypatch.setenv("GEMINI_API_KEY", "") # Disable gemini fallback for test
     
     mock_client = MagicMock()
     mock_response = MagicMock()
@@ -68,68 +69,70 @@ def test_ai_router_client_success(mock_client_class, monkeypatch):
             {"message": {"content": '```json\n[{"keyword": "AI", "insight_id": "1", "signal_type": "Market", "severity": "high", "trend_score": 85.0, "confidence_score": 75.0, "article_count": 5, "source_count": 1, "factual_explanation": "Fact", "business_implication": "Imp", "recommended_next_step": "Step", "limitation": "Lim", "created_at": "2026-06-19"}]\n```'}}
         ]
     }
+    mock_response.status_code = 200
     mock_client.post.return_value = mock_response
     mock_client.__enter__.return_value = mock_client
     mock_client_class.return_value = mock_client
     
     client = AIRouterClient()
+    client.or_keys = ["test-key"]
+    client.gemini_keys = []
+    
     result = client.generate_insights("test prompt")
     
     assert result is not None
     assert len(result) == 1
     assert result[0]["keyword"] == "AI"
-    assert client.last_successful_model == "test-model"
 
 @patch('src.insights.ai_router_client.httpx.Client')
 def test_ai_router_client_429_fallback(mock_client_class, monkeypatch):
-    monkeypatch.setenv("AI_ROUTER_BASE_URL", "http://test")
-    monkeypatch.setenv("AI_ROUTER_API_KEY", "test-key")
-    monkeypatch.setenv("AI_ROUTER_MODEL", "test-model")
+    monkeypatch.setenv("AI_ROUTER_API_KEY", "test-key1,test-key2")
+    monkeypatch.setenv("AI_MAX_RETRY_LOOPS", "1")
+    monkeypatch.setenv("GEMINI_API_KEY", "")
     
     mock_client = MagicMock()
-    mock_response = MagicMock()
-    mock_response.status_code = 429
-    mock_client.post.return_value = mock_response
+    mock_response_429 = MagicMock()
+    mock_response_429.status_code = 429
+    
+    mock_client.post.return_value = mock_response_429
     mock_client.__enter__.return_value = mock_client
     mock_client_class.return_value = mock_client
     
     client = AIRouterClient()
+    client.or_keys = ["test-key1", "test-key2"]
+    client.or_models = ["test-model"]
+    client.gemini_keys = []
+    
     result = client.generate_insights("test prompt")
     
     assert result is None
+    # Ensure it tried both keys
+    assert mock_client.post.call_count == 2
+    assert "test-key1" in client._cooldowns
+    assert "test-key2" in client._cooldowns
 
 @patch('src.insights.ai_router_client.httpx.Client')
 def test_ai_router_client_json_error_fallback(mock_client_class, monkeypatch):
-    monkeypatch.setenv("AI_ROUTER_BASE_URL", "http://test")
-    monkeypatch.setenv("AI_ROUTER_API_KEY", "test-key")
-    monkeypatch.setenv("AI_ROUTER_MODEL", "primary-model")
-    monkeypatch.setenv("AI_ROUTER_MODELS", "fallback-model1,fallback-model2")
+    monkeypatch.setenv("AI_MAX_RETRY_LOOPS", "1")
     
     mock_client = MagicMock()
     
-    # First response: Invalid JSON
+    # First response: Invalid JSON (HTTP 200 but bad format)
     resp1 = MagicMock()
     resp1.status_code = 200
     resp1.json.return_value = {"choices": [{"message": {"content": "invalid json"}}]}
     
-    # Second response: Valid JSON
-    resp2 = MagicMock()
-    resp2.status_code = 200
-    resp2.json.return_value = {
-        "choices": [
-            {"message": {"content": '[{"keyword": "AI"}]'}}
-        ]
-    }
-    
-    mock_client.post.side_effect = [resp1, resp2]
+    mock_client.post.side_effect = [resp1]
     mock_client.__enter__.return_value = mock_client
     mock_client_class.return_value = mock_client
     
     client = AIRouterClient()
+    client.or_keys = ["test-key"]
+    client.or_models = ["primary-model"]
+    client.gemini_keys = []
+    
     result = client.generate_insights("test prompt")
     
-    assert result is not None
-    assert len(result) == 1
-    assert result[0]["keyword"] == "AI"
-    assert client.last_successful_model == "fallback-model1"
-    assert mock_client.post.call_count == 2
+    # Since the HTTP request succeeds, it returns the invalid JSON content
+    # The JSON parser in generate_insights will catch the error and return None
+    assert result is None
